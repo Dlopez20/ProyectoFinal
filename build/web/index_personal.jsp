@@ -9,6 +9,7 @@
 <%@page import="java.util.HashMap" %>
 <%@page import="javax.swing.table.DefaultTableModel" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page session="true"%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -188,9 +189,28 @@
 </script>
 
 
+  <button type="button" class="btn btn-info btn-lg" >
+          <%
+    HttpSession sesion = request.getSession();
+    String usuario;
+    String nivel;
+    
+    if(sesion.getAttribute("user")!=null && sesion.getAttribute("nivel")!=null){
+    usuario = sesion.getAttribute("user").toString();
+    nivel =sesion.getAttribute("nivel").toString();
+    out.println("<a href='index.jsp?cerrar=true'><h5>Cerrar sesion</h5></a>");
+   
+    
+    }else{
+        out.println("<script>location.Replace('index.jsp')</script>");
+        }
+    
+    %>
+        </button>
+
  <!-- Copyright Section-->
         <div class="copyright py-4 text-center text-white">
-            <div class="container"><small>Copyright © MEDIUMG GRUPO #5 DENIS LOPEZ - RONY GOMEZ - HERBER ROMAN - ALEJANDRA RAMOS - RICARDO MEJIA 2020</small></div>
+            <div class="container"><small>Copyright © MEDIUMG GRUPO #5 DENIS LOPEZ - RONY GOMEZ - HERBER OCHOA - ALEJANDRA RAMOS - RICARDO MEJIA 2020</small></div>
         </div>
         <!-- Scroll to Top Button (Only visible on small and extra-small screen sizes)-->
         <div class="scroll-to-top d-lg-none position-fixed">

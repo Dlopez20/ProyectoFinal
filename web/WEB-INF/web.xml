@@ -12,6 +12,22 @@
         <servlet-name>sr_paciente</servlet-name>
         <servlet-class>controlador.sr_paciente</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>se_historial</servlet-name>
+        <servlet-class>controlador.se_historial</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>sr_historial</servlet-name>
+        <servlet-class>controlador.sr_historial</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>sr_habitacion</servlet-name>
+        <servlet-class>controlador.sr_habitacion</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>sr_cita</servlet-name>
+        <servlet-class>controlador.sr_cita</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>sr_per</servlet-name>
         <url-pattern>/sr_per</url-pattern>
@@ -23,6 +39,22 @@
     <servlet-mapping>
         <servlet-name>sr_paciente</servlet-name>
         <url-pattern>/sr_paciente</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>se_historial</servlet-name>
+        <url-pattern>/se_historial</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>sr_historial</servlet-name>
+        <url-pattern>/sr_historial</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>sr_habitacion</servlet-name>
+        <url-pattern>/sr_habitacion</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>sr_cita</servlet-name>
+        <url-pattern>/sr_cita</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

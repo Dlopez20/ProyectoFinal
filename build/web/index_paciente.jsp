@@ -8,6 +8,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="java.util.HashMap"%>
 <%@page import="javax.swing.table.DefaultTableModel"%>
+<%@page session="true"%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -72,13 +73,7 @@
                 <p class="masthead-subheading font-weight-light mb-0">En donde tu SALUD es lo mas importanter</p>
             </div>
         </header>
-        
-        
-        
-        
-        
-    <div class="container">
-        <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#modal_paciente" onclick="limpiar()">Nuevo</button>
+   
         
         <div class="modal fade" id="modal_paciente" role="dialog">
     <div class="modal-dialog">
@@ -91,19 +86,19 @@
                 <label for="lbl_id" ><b>ID</b></label>
                 <input type="text" name="txt_id" id="txt_id" class="form-control" value="0" readonly> 
                 <label for="lbl_dpi"><b>DPI</b> </label>
-                <input type="text" name="txt_dpi" id="txt_dpi" class="form-control" placeholder="3448176950301" required>
+                <input type="text" name="txt_dpi" id="txt_dpi" class="form-control" placeholder="Ejemplo: 3448176950301" required>
                 <label for="lbl_nombres"><b> Nombres</b> </label>
-                <input type="text" name="txt_nombres" id="txt_nombre" class="form-control" placeholder="Denis Donaldo" required>
+                <input type="text" name="txt_nombres" id="txt_nombre" class="form-control" placeholder="Ejemplo: Denis Donaldo" required>
                 <label for="lbl_apellidos"><b> Apellidos</b> </label>
-                <input type="text" name="txt_apellidos" id="txt_apellidos" class="form-control" placeholder="Lopez Archila" required>
+                <input type="text" name="txt_apellidos" id="txt_apellidos" class="form-control" placeholder="Ejemplo: Lopez Archila" required>
                 <label for="lbl_fn"><b> Fecha de Nacimiento</b> </label>
                 <input type="date" name="txt_fn" id="txt_fn" class="form-control" required>
                 <label for="lbl_genero"><b> Genero</b> </label>
-                <input type="text" name="txt_genero" id="txt_genero" class="form-control" placeholder="Femenino o Masculino" required>
+                <input type="text" name="txt_genero" id="txt_genero" class="form-control" placeholder="Ejemplo: Femenino o Masculino" required>
                 <label for="lbl_direccion"><b>Direccion</b> </label>
-                <input type="text" name="txt_direccion" id="txt_direccion" class="form-control" placeholder="Antigua Guatemala" required>
+                <input type="text" name="txt_direccion" id="txt_direccion" class="form-control" placeholder="Ejemplo: Antigua Guatemala" required>
                 <label for="lbl_telefono"><b> Telefono</b> </label>
-                <input type="text" name="txt_telefono" id="txt_telefono" class="form-control" placeholder="12345678" required>
+                <input type="text" name="txt_telefono" id="txt_telefono" class="form-control" placeholder="Ejemplo: 12345678" required>
                 <br>
                 <button  name="btn_agregar" id="btn_agregar" value="agregar" class="btn btn-primary">Agregar</button>
                 <button  name="btn_modificar" id="btn_modificar" value="modificar" class="btn btn-success">Modificar</button>
@@ -126,6 +121,12 @@
 
 <table class="table">
   <thead class="thead-light">
+      <tr>
+          <td>
+               <div class="container">
+        <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#modal_paciente" onclick="limpiar()">Nuevo</button>
+          </td>
+      </tr>
     <tr>
       <th>DPI</th>
       <th>Nombres</th>
@@ -199,11 +200,28 @@
     } );
     
 </script>
+      <button type="button" class="btn btn-info btn-lg" >
+          <%
+    HttpSession sesion = request.getSession();
+    String usuario;
+    String nivel;
     
+    if(sesion.getAttribute("user")!=null && sesion.getAttribute("nivel")!=null){
+    usuario = sesion.getAttribute("user").toString();
+    nivel =sesion.getAttribute("nivel").toString();
+    out.println("<a href='index.jsp?cerrar=true'><h5>Cerrar sesion</h5></a>");
+   
+    
+    }else{
+        out.println("<script>location.Replace('index.jsp')</script>");
+        }
+    
+    %>
+        </button>
 
  <!-- Copyright Section-->
         <div class="copyright py-4 text-center text-white">
-            <div class="container"><small>Copyright © MEDIUMG GRUPO #5 DENIS LOPEZ - RONY GOMEZ - HERBER ROMAN - ALEJANDRA RAMOS - RICARDO MEJIA 2020</small></div>
+            <div class="container"><small>Copyright © MEDIUMG GRUPO #5 DENIS LOPEZ - RONY GOMEZ - HERBER OCHOA - ALEJANDRA RAMOS - RICARDO MEJIA 2020</small></div>
         </div>
         <!-- Scroll to Top Button (Only visible on small and extra-small screen sizes)-->
         <div class="scroll-to-top d-lg-none position-fixed">

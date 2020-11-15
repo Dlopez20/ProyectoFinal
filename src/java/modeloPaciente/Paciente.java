@@ -86,7 +86,7 @@ public class Paciente extends Persona{
         
         cn.cerrar_conexion();
         }
-    catch(Exception ex){
+    catch(SQLException ex){
         System.out.println(ex.getMessage());
         retorno = 0;
     }
@@ -113,7 +113,7 @@ public class Paciente extends Persona{
         
         cn.cerrar_conexion();
         }
-    catch(Exception ex){
+    catch(SQLException ex){
         System.out.println(ex.getMessage());
         retorno = 0;
     }
@@ -134,7 +134,7 @@ public class Paciente extends Persona{
         
         cn.cerrar_conexion();
         }
-    catch(Exception ex){
+    catch(SQLException ex){
         System.out.println(ex.getMessage());
         retorno = 0;
     }

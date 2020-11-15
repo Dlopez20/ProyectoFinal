@@ -1,33 +1,22 @@
 <%-- 
     Document   : index
     Created on : 11/08/2020, 15:53:07
-    Author     : Usuario
+    Author     : paiz2
 --%>
 
-<%@page import="modelo.Puesto" %>
-<%@page import="modelo.Personal" %>
+<%@page import="modeloHabitacion.Habitacion" %>
+<%@page import="modelo.Conexion" %>
 <%@page import="java.util.HashMap" %>
 <%@page import="javax.swing.table.DefaultTableModel" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@page session="true"%>
 <!DOCTYPE html>
-<html>
+<html lang="en">
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Personal</title>
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
-        
-    </head>
-    
-    
-    <body>
-        
-        <head>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
         <meta name="author" content="" />
-    
+        <title>Sistema Medico MediUmG</title>
         <!-- Favicon-->
         <link rel="icon" type="image/x-icon" href="assets/img/favicon.ico" />
         <!-- Font Awesome icons (free version)-->
@@ -42,16 +31,16 @@
         <!-- Navigation-->
         <nav class="navbar navbar-expand-lg bg-secondary text-uppercase fixed-top" id="mainNav">
             <div class="container">
-                <a class="navbar-brand js-scroll-trigger" href="principal.jsp">Bienvenido Administrador de MEDIUMG</a>
+                <a class="navbar-brand js-scroll-trigger" href="principal.jsp">Clinica Medica MediUMG</a>
                 <button class="navbar-toggler navbar-toggler-right text-uppercase font-weight-bold bg-primary text-white rounded" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                     Menu
                     <i class="fas fa-bars"></i>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                     <ul class="navbar-nav ml-auto">
-                        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="index_paciente.jsp">PACIENTES</a></li>
-                        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="index_personal.jsp">PERSONAL</a></li>
-                        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="index_medicina.jsp">MEDICINA</a></li>
+                        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="somos.jsp">Quienes Somos</a></li>
+                        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="servicios.jsp">Servicios</a></li>
+                        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="index_cita.jsp">Crea tu Cita</a></li>
                     </ul>
                 </div>
             </div>
@@ -62,7 +51,7 @@
                 <!-- Masthead Avatar Image-->
                 <img class="masthead-avatar mb-5" src="assets/img/avataaars.svg" alt="" />
                 <!-- Masthead Heading-->
-                <h1 class="masthead-heading text-uppercase mb-0">Formulario Personal</h1>
+                <h1 class="masthead-heading text-uppercase mb-0">MediUMG</h1>
                 <!-- Icon Divider-->
                 <div class="divider-custom divider-light">
                     <div class="divider-custom-line"></div>
@@ -75,40 +64,23 @@
         </header>
         
         
-        
-        
-       
        
     <div class="container">
-    <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#modal_personal" onclick="limpiar()">Nuevo</button>
-
-          <div class="modal fade" id="modal_personal" role="dialog">
+          <div class="modal fade" id="modal_habitacion" role="dialog">
     <div class="modal-dialog">
     
       <!-- Modal content-->
       <div class="modal-content">
         <div class="modal-body">
-            <form action="sr_per" method="post" class="form-group">
+            <form action="sr_habitacion" method="post" class="form-group">
                <label for="lbl_id" ><b>ID</b></label>
-                <input type="text" name="txt_id" id="txt_id" class="form-control" value="0"  readonly> 
-                <label for="lbl_nombre_personal" ><b>Nombre</b></label>
-                <input type="text" name="txt_nombre_personal" id="txt_nombre_personal" class="form-control" placeholder="Ejemplo: Nombre1 Nombre2" required>
-                <label for="lbl_apellido_personal" ><b>Apellido</b></label>
-                <input type="text" name="txt_apellido_personal" id="txt_apellido_personal" class="form-control" placeholder="Ejemplo: Apellido1 Apellido2" required>
-                <label for="lbl_telefono_personal" ><b>Telefono</b></label>
-                <input type="number" name="txt_telefono_personal" id="txt_telefono_personal" class="form-control" placeholder="Ejemplo: 5555555" required>
-                <label for="lbl_direccion_personal" ><b>Direccion</b></label>
-                <input type="text"  name="txt_direccion_personal" id="txt_direccion_personal" class="form-control" placeholder="Ejemplo: #Casa calle zona ciudad" required>
-                <label for="lbl_puesto" ><b>Puesto</b></label>
-                <select name="drop_puesto" id="drop_puesto" class="form-control">
-                    <% 
-                        Puesto puesto = new Puesto();
-                        HashMap<String,String> drop = puesto.drop_puesto();
-                         for (String i:drop.keySet()){
-                             out.println("<option value='" + i + "'>" + drop.get(i) + "</option>");
-                         }
-                    %>
-                </select>
+                <input type="text" name="txt_id" id="txt_id" class="form-control" value="0"  readonly>
+                <label for="lbl_codigo_habitacion" ><b>codigo_habitacion</b></label>
+                <input type="text" name="txt_codigo_habitacion" id="txt_codigo_habitacion" class="form-control" required>
+                <label for="lbl_descripcion" ><b>descripcion</b></label>
+                <input type="text"  name="txt_descripcion" id="txt_descripcion" class="form-control" required>
+                
+                
                 <br>
                 <button name="btn_agregar" id="btn_agregar"  value="agregar" class="btn btn-primary btn-lg">Agregar</button>
                 <button name="btn_modificar" id="btn_modificar"  value="modificar" class="btn btn-success btn-lg">Modificar</button>
@@ -125,30 +97,29 @@
            
     <table class="table table-striped">
     <thead>
+                <tr><td>
+             <h1>Formulario Habitacion</h1>
+        <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#modal_habitacion" onclick="limpiar()">Nuevo</button>
+        
+            </td></tr>
       <tr>
-        <th>Nombre</th>
-        <th>Apellido</th>
-        <th>Telefono</th>
-        <th>Direccion</th>
-        <th>Puesto</th>
+        <th>Codigo</th>
+        <th>Descripcion</th>
       </tr>
     </thead>
-    <tbody id="tbl_personal">
+    <tbody id="tbl_habitacion">
         <% 
-        Personal personal = new Personal();
+        Habitacion habitacion = new Habitacion();
         DefaultTableModel tabla = new DefaultTableModel();
-        tabla = personal.leer();
+        tabla = habitacion.leer();
         for (int t=0;t<tabla.getRowCount();t++){
-            out.println("<tr data-id=" + tabla.getValueAt(t,0) + " data-id_p=" + tabla.getValueAt(t,6) + ">");
-            out.println("<td>" + tabla.getValueAt(t,1) + "</td>");
-            out.println("<td>" + tabla.getValueAt(t,2) + "</td>");
-            out.println("<td>" + tabla.getValueAt(t,3) + "</td>");
-            out.println("<td>" + tabla.getValueAt(t,4) + "</td>");
-            out.println("<td>" + tabla.getValueAt(t,5) + "</td>");
+            out.println("<tr data-id=" + tabla.getValueAt(t,0) + ">");
+            out.println("<td>" + tabla.getValueAt(t, 1) + "</td>");
+            out.println("<td>" + tabla.getValueAt(t, 2) + "</td>");
             out.println("</tr>");
-        
         }
         %>
+      
     </tbody>
   </table>
   </div>
@@ -158,38 +129,28 @@
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
 <script type="text/javascript">
-    
     function limpiar(){
        $("#txt_id").val(0);
-       $("#txt_nombre_personal").val('');
-       $("#txt_apellido_personal").val('');
-       $("#txt_telefono_personal").val('');
-       $("#txt_direccion_personal").val('');
-       $("#drop_puesto").val(1);
+       $("#txt_codigo_habitacion").val('');
+       $("#txt_descripcion").val('');
     }
     
-    $('#tbl_personal').on('click','tr td',function(evt){
-       var target,id,id_p,nombre_personal,apellido_personal,telefono_personal,direccion_personal; 
+    $('#tbl_habitacion').on('click','tr td',function(evt){
+       var target,id,codigo_habitacion,descripcion; 
        target = $(event.target);
        id = target.parent().data('id');
-       id_p = target.parent().data('id_p'); 
-       nombre_personal = target.parent("tr").find("td").eq(0).html();
-       apellido_personal = target.parent("tr").find("td").eq(1).html();
-       telefono_personal = target.parent("tr").find("td").eq(2).html();
-       direccion_personal = target.parent("tr").find("td").eq(3).html();
+       codigo_habitacion = target.parent("tr").find("td").eq(0).html();
+       descripcion = target.parent("tr").find("td").eq(1).html();
        $("#txt_id").val(id);
-       $("#txt_nombre_personal").val(nombre_personal);
-       $("#txt_apellido_personal").val(apellido_personal);
-       $("#txt_telefono_personal").val(telefono_personal);
-       $("#txt_direccion_personal").val(direccion_personal);
-       $("#drop_puesto").val(id_p);
-       $("#modal_personal").modal('show');
+       $("#txt_codigo_habitacion").val(codigo_habitacion);
+       $("#txt_descripcion").val(descripcion);
+       $("#modal_habitacion").modal('show');
     });
     
 </script>
-
-
-  <button type="button" class="btn btn-info btn-lg" >
+    </body>
+    
+      <button type="button" class="btn btn-info btn-lg" >
           <%
     HttpSession sesion = request.getSession();
     String usuario;
@@ -198,7 +159,7 @@
     if(sesion.getAttribute("user")!=null && sesion.getAttribute("nivel")!=null){
     usuario = sesion.getAttribute("user").toString();
     nivel =sesion.getAttribute("nivel").toString();
-    out.println("<a href='index.jsp?cerrar=true'><h5>Cerrar sesion</h5></a>");
+    out.println("<a href='index.jsp?cerrar=true'><h5>Cerrar sesion"+usuario+"</h5></a>");
    
     
     }else{
@@ -207,8 +168,7 @@
     
     %>
         </button>
-
- <!-- Copyright Section-->
+       <!-- Copyright Section-->
         <div class="copyright py-4 text-center text-white">
             <div class="container"><small>Copyright © MEDIUMG GRUPO #5 DENIS LOPEZ - RONY GOMEZ - HERBER OCHOA - ALEJANDRA RAMOS - RICARDO MEJIA 2020</small></div>
         </div>
@@ -228,6 +188,4 @@
         <script src="assets/mail/contact_me.js"></script>
         <!-- Core theme JS-->
         <script src="js/scripts.js"></script>
-
-    </body>
 </html>
